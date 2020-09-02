@@ -1,0 +1,14 @@
+[app]
+    ServerName = "dm.auth.srv"
+    Version = "latest"
+    Address = ":10087"
+
+# 全局日志配置
+[logger]
+    Path   = "./logs"
+    Level  = "all"
+    Stdout = true
+
+[redis]
+     default  = "127.0.0.1:6379,0"
+     cache = "127.0.0.1:6379,2"

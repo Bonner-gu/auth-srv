@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package cs.auth.srv;
+
+option go_package = "authSrvPb";
+
+service AuthService {
+	// 生成token
+	rpc MakeToken (MakeTokenReq) returns (MakeTokenResp) {}
+	// 校验token
+	rpc CheckToken (CheckTokenReq) returns (CheckTokenResp) {}
+	// 删除token
+	rpc DelToken (DelTokenReq) returns (BaseRsp) {}
+}
+
+message BaseRsp{
+
+}
+
+message MakeTokenReq{
+	Token token = 1;
+}
+
+message MakeTokenResp{
+	string token = 1; // 生成的jwt加密串
+}
+
+message CheckTokenReq{
+	string token = 1; // jwt的str串
+}
+
+message CheckTokenResp{
+	Token token = 1;
+}
+
+message DelTokenReq{
+	string token = 1; // jwt的str串
+}
+
+enum Source{
+	PC = 0;
+	H5 = 1;
+	ANDROID = 2;
+	IOS = 3;
+	WX = 4;
+	ALL = 100; // 所有的
+}
+
+enum Role{
+	USER = 0; // USER
+	ADMIN = 1; // 管理端
+}
+
+message Token {
+	Source source = 1; // 来源
+	string ip = 2; // IP地址
+	string mk = 3; // 机器码
+	int32 uin = 4; // 用户唯一标识
+	Role role = 5; // 用户角色
+	string skey = 6; // 登陆态
+}
